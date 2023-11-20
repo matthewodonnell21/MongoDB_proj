@@ -1,0 +1,7 @@
+use music_company;
+
+// insert statements
+
+
+
+// queries
