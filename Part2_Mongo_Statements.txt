@@ -1,0 +1,113 @@
+// 1. Create a database named 'Garage'.
+
+use Garage;
+
+// 2. Insert the following record for the garage manager into a collection called 'employees':
+
+db.employees.insertOne(
+{
+    firstName: "Juan",
+    lastName: "Torres",
+    SSN: 12345,
+    IDNumber: "000000Z",
+    birthDate: ISODate("1960-01-01T00:00:00Z"),
+    category: "supervisor"
+});
+
+// 3. Insert the following record for the receptionist of the Garage and the vehicles they have serviced:
+
+db.employees.insertOne(
+{
+    firstName: "Felipe",
+    lastName: "Fernandez",
+    SSN: 1234567891011,
+    IDNumber: "12345678Z",
+    birthDate: ISODate("1965-03-15T00:00:00Z"),
+    category: "receptionist",
+    services: [
+    {
+        clientIDNumber: "98765432P",
+        vehicle: 
+        {
+            licensePlate: "2819CTH",
+            chassisNumber: "SFZRE11BX73V00011",
+            brand: "Renault",
+            model: "Laguna"
+        },
+        consultationDate: ISODate("2020-03-10T12:24:00Z"),
+        estimate: 
+        {
+            description: "Total Painting",
+            accepted: false
+        }
+    },
+    {
+        clientIDNumber: "98827432P",
+        vehicle: 
+        {
+            licensePlate: "4801CZP",
+            chassisNumber: "SFZRE11BX73V00011",
+            brand: "Peugeot",
+            model: "607"
+        },
+        consultationDate: ISODate("2020-03-11T17:54:00Z"),
+        estimate: 
+        {
+            description: "Front Tires Replacement",
+            parts: ["michelin all climate tires", "front wheel screws", "hubcaps"],
+            accepted: true
+        }
+    }]
+});
+
+// 4. Insert the following employees supplied in the form of an array:
+
+db.employees.insertMany([
+{
+    firstName: "Carmen",
+    lastName: "Granados",
+    SSN: 35489612549,
+    IDNumber: "45612378T",
+    birthDate: ISODate("1973-06-19T00:00:00Z"),
+    category: "manager"
+},
+{
+    firstName: "Susana",
+    lastName: "Martinez",
+    SSN: 98765432131,
+    IDNumber: "98765432M",
+    birthDate: ISODate("1982-10-07T00:00:00Z"),
+    category: "worker",
+    work: [
+    {
+        repairID: 2849165,
+        repairCode: "RTW",
+        week: 4,
+        hoursWorked: 8
+    },
+    {
+        repairID: 4698531,
+        repairCode: "HDI",
+        week: 6,
+        hoursWorked: 23
+    }]
+},
+{
+    firstName: "Federico",
+    lastName: "Martinez",
+    SSN: 98666662131,
+    IDNumber: "431215432M",
+    birthDate: ISODate("1990-10-07T00:00:00Z"),
+    category: "worker",
+    work: [
+    {
+        repairID: 4698531,
+        repairCode: "HDI",
+        week: 6,
+        hoursWorked: 23
+    }]
+}]);
+
+// 5. Display the first and last names of all employees sorted by their birth date.
+
+db.getCollection('employees').find({}, {firstName : 1, lastName : 1, _id : 0}).sort({birthDate: 1});
