@@ -1,1 +1,73 @@
 
+// Artist Collection
+{
+    "_id": 1,
+    "Name" : "Michael Jackson",
+    "DOB" : "1958-08-29",
+    "Instruments" : ["keyboard", "guitar"],
+    "Band IDs" : [1]
+}
+// Band Collection
+{
+    "_id": 1,
+    "Name" : "The Jackson 5",
+    "Members" : {
+        {
+            "Artist ID" : 1,
+            "Name" : "Michael Jackson",
+            "DOB" : "1958-08-29",
+            "Instruments" : ["keyboard", "guitar"],
+        },
+        {
+            "Artist ID" : 2,
+            "Name" : "Jackie Jackson",
+            "DOB" : "1951-05-04",
+            "Instruments" : ["keyboard", "guitar"],
+        }
+    },
+    "Formation Date" : "1964-01-01",
+    "Genre" : "Pop",
+    "Albums" : {
+        {
+            "Album ID" : 2,
+            "Title" : "Third Album",
+            "Release Date" : "1970-09-08",
+            "Genre" : "Pop"
+        }
+    }
+}
+// Track Collection
+{
+    "_id": 1,
+    "Title" : "Billie Jean",
+    "Duration" : "4:53",
+    "Artist/Band" : {
+        "type" : "artist",
+        "Reference ID" : 1
+    },
+    "Album IDs" : [1]
+}
+// Album Collection
+{
+    "_id": 1,
+    "Title" : "Thriller",
+    "Release Date" : "1982-11-30",
+    "Tracks" : {
+        {
+            "Track ID" : 1,
+            "Title" : "Billie Jean",
+            "Duration" : "4:53"
+        },
+        {
+            "Track ID" : 2,
+            "Title" : "Billie Jean",
+            "Duration" : "4:53"
+        }
+            
+    },
+    "Genre": "Pop",
+    "Artist/Band" : {
+        "type" : "artist",
+        "Reference ID" : 1
+    }
+}
