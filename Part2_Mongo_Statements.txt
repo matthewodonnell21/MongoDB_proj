@@ -111,3 +111,38 @@ db.employees.insertMany([
 // 5. Display the first and last names of all employees sorted by their birth date.
 
 db.getCollection('employees').find({}, {firstName : 1, lastName : 1, _id : 0}).sort({birthDate: 1});
+
+// 6. Locate all individuals whose last name begins with G, or who have a category of manager or worker.
+
+db.getCollection('employees').find(
+    {$or : [
+        {category : 
+            {$in : ["manager", "worker"]}
+        }, 
+        {lastName :
+            {$regex : "^G"}
+        }]});
+
+// 7. Insert a new record:
+
+db.employees.insertOne({
+    firstName: "Juan",
+    lastName: "Nuts",
+    SSN: 111111,
+    IDNumber: "00000X",
+    birthDate: ISODate("1990-10-07T00:00:00Z"),
+    category: "worker",
+    work: [{
+        repairID: 3663663,
+        repairCode: "FFF",
+        week: 6,
+        hoursWorked: 10
+    }]
+});
+
+// 9.  Find who has worked on the repair order 4698531 or the work order 2849165.
+
+db.getCollection('employees').find({
+    "work.repairID" : {$in : [4698531, 2849165]}
+});
+
