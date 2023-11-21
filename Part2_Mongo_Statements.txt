@@ -5,144 +5,189 @@ use Garage;
 // 2. Insert the following record for the garage manager into a collection called 'employees':
 
 db.employees.insertOne(
-{
-    firstName: "Juan",
+    { firstName: "Juan",
     lastName: "Torres",
     SSN: 12345,
     IDNumber: "000000Z",
     birthDate: ISODate("1960-01-01T00:00:00Z"),
-    category: "supervisor"
-});
+    category: "supervisor" }
+);
 
 // 3. Insert the following record for the receptionist of the Garage and the vehicles they have serviced:
 
 db.employees.insertOne(
-{
-    firstName: "Felipe",
+    { firstName: "Felipe",
     lastName: "Fernandez",
     SSN: 1234567891011,
     IDNumber: "12345678Z",
     birthDate: ISODate("1965-03-15T00:00:00Z"),
     category: "receptionist",
     services: [
-    {
-        clientIDNumber: "98765432P",
+        { clientIDNumber: "98765432P",
         vehicle: 
-        {
-            licensePlate: "2819CTH",
+            { licensePlate: "2819CTH",
             chassisNumber: "SFZRE11BX73V00011",
             brand: "Renault",
-            model: "Laguna"
-        },
+            model: "Laguna" },
         consultationDate: ISODate("2020-03-10T12:24:00Z"),
         estimate: 
-        {
-            description: "Total Painting",
-            accepted: false
-        }
-    },
-    {
-        clientIDNumber: "98827432P",
+            { description: "Total Painting",
+            accepted: false } },
+        { clientIDNumber: "98827432P",
         vehicle: 
-        {
-            licensePlate: "4801CZP",
+            { licensePlate: "4801CZP",
             chassisNumber: "SFZRE11BX73V00011",
             brand: "Peugeot",
-            model: "607"
-        },
+            model: "607" },
         consultationDate: ISODate("2020-03-11T17:54:00Z"),
         estimate: 
-        {
-            description: "Front Tires Replacement",
+            { description: "Front Tires Replacement",
             parts: ["michelin all climate tires", "front wheel screws", "hubcaps"],
-            accepted: true
-        }
-    }]
-});
+            accepted: true } }
+    ] }
+);
 
 // 4. Insert the following employees supplied in the form of an array:
 
 db.employees.insertMany([
-{
-    firstName: "Carmen",
+    { firstName: "Carmen",
     lastName: "Granados",
     SSN: 35489612549,
     IDNumber: "45612378T",
     birthDate: ISODate("1973-06-19T00:00:00Z"),
-    category: "manager"
-},
-{
-    firstName: "Susana",
+    category: "manager" },
+    { firstName: "Susana",
     lastName: "Martinez",
     SSN: 98765432131,
     IDNumber: "98765432M",
     birthDate: ISODate("1982-10-07T00:00:00Z"),
     category: "worker",
     work: [
-    {
-        repairID: 2849165,
+        { repairID: 2849165,
         repairCode: "RTW",
         week: 4,
-        hoursWorked: 8
-    },
-    {
-        repairID: 4698531,
+        hoursWorked: 8 },
+        { repairID: 4698531,
         repairCode: "HDI",
         week: 6,
-        hoursWorked: 23
-    }]
-},
-{
-    firstName: "Federico",
+        hoursWorked: 23 }
+    ] },
+    { firstName: "Federico",
     lastName: "Martinez",
     SSN: 98666662131,
     IDNumber: "431215432M",
     birthDate: ISODate("1990-10-07T00:00:00Z"),
     category: "worker",
     work: [
-    {
-        repairID: 4698531,
+        { repairID: 4698531,
         repairCode: "HDI",
         week: 6,
-        hoursWorked: 23
-    }]
-}]);
+        hoursWorked: 23 }
+    ]}
+]);
 
 // 5. Display the first and last names of all employees sorted by their birth date.
 
-db.getCollection('employees').find({}, {firstName : 1, lastName : 1, _id : 0}).sort({birthDate: 1});
+db.getCollection('employees').find({}, {firstName: 1, lastName: 1, _id: 0}).sort({birthDate: 1});
 
 // 6. Locate all individuals whose last name begins with G, or who have a category of manager or worker.
 
 db.getCollection('employees').find(
-    {$or : [
-        {category : 
-            {$in : ["manager", "worker"]}
-        }, 
-        {lastName :
-            {$regex : "^G"}
-        }]});
+    { $or: [
+        { category: 
+            { $in: ["manager", "worker"] } }, 
+        { lastName:
+            { $regex: "^G" } }
+    ] }
+);
 
 // 7. Insert a new record:
 
-db.employees.insertOne({
-    firstName: "Juan",
+db.employees.insertOne(
+    { firstName: "Juan",
     lastName: "Nuts",
     SSN: 111111,
     IDNumber: "00000X",
     birthDate: ISODate("1990-10-07T00:00:00Z"),
     category: "worker",
-    work: [{
-        repairID: 3663663,
+    work: [
+        { repairID: 3663663,
         repairCode: "FFF",
         week: 6,
-        hoursWorked: 10
-    }]
-});
+        hoursWorked: 10 }
+    ] }
+);
 
 // 9.  Find who has worked on the repair order 4698531 or the work order 2849165.
 
-db.getCollection('employees').find({
-    "work.repairID" : {$in : [4698531, 2849165]}
-});
+db.getCollection('employees').find(
+    { "work.repairID": 
+        { $in: [4698531, 2849165] } }
+);
 
+// 10. Update the IDNumber of the manager with another value.
+
+db.employees.updateOne( { category: "manager" }, { $set: { IDNumber: "newIDvalue" } });
+
+// 11. The labour inspection obliges us not to be able to use the category "worker", and we have to change it to "mechanic". 
+// Make the change in the database so that weare not fined.
+
+db.employees.updateMany( { category: "worker" }, { $set: { category: "mechanic" } });
+
+// 12. Locate the records of all the times the vehicle with chassis SFZRE11BX73V00011 has been serviced by the Garage. 
+
+db.employees.aggregate([
+  { $match: { "services.vehicle.chassisNumber": "SFZRE11BX73V00011" } },
+  { $unwind: "$services" },
+  { $match: { "services.vehicle.chassisNumber": "SFZRE11BX73V00011" } },
+  { $project: { _id: 0, services: 1 } }
+]);
+
+// What anomaly is presented? Use some criteria to correct it.
+
+db.employees.updateOne(
+   { "services.vehicle.chassisNumber": "SFZRE11BX73V00011" },
+   { $set: { "services.vehicle.chassisNumber": "NEWCHASSIS1111111" } }
+);
+
+// 13. Create a text index on the descriptions of the estimates and locate all vehicles that have been painted.
+
+
+
+// 14. Count the number of employees who have worked on repairs with repairID 2849165 and 4698531.
+
+db.employees.aggregate([
+  { $unwind: "$work" },
+  { $match: { "work.repairID": { $in: [2849165, 4698531] } } },
+  { $group: 
+      { _id: "$work.repairID",
+      distinctEmployees: { $addToSet: "$_id" } } },
+  { $project: 
+      { _id: 1, totalEmployees: { $size: "$distinctEmployees" } } }
+]);
+
+// 15. List the distinct first names of all employees who have worked on the repair with repairID 4698531.
+
+db.employees.distinct("firstName", { "work.repairID": 4698531 }); 
+
+// 16. Calculate the total hours worked by each employee in all the repairs they have worked on.
+
+db.employees.aggregate([
+  { $unwind: "$work" },
+  { $group: { _id: "$_id", 
+      totalHoursWorked: { $sum: "$work.hoursWorked" }, 
+      firstName : { $first: "$firstName"},
+      lastName : { $first: "$lastName"} } }
+]);
+
+// 17. Find the employee's name who has worked the most total hours.
+
+db.employees.aggregate([
+    { $unwind: "$work" },
+    { $group: { _id: "$_id", 
+        totalHoursWorked: { $sum: "$work.hoursWorked" }, 
+        firstName: { $first: "$firstName" },
+        lastName: { $first: "$lastName"} } },
+    { $sort: { totalHoursWorked: -1 } },
+    { $limit: 1 } 
+]);
