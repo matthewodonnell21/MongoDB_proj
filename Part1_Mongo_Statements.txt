@@ -59,6 +59,17 @@ use music_company;
     "Instruments": ["drums", "vocals"],
     "Band IDs": [5]
   }
+  //Songs
+{
+  "_id": 201,
+  "Title": "Live and Let Die",
+  "Duration": "3:12",
+  "Artist/Band": {
+    "type": "artist",
+    "Reference ID": 2
+  },
+  "Album IDs": []
+}
 
 
 
