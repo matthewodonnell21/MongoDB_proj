@@ -1,6 +1,34 @@
 use music_company;
 
 // insert statements
+  //Bands 
+  {
+  "_id": 2,
+  "Name": "The Beatles",
+  "Members": [32, 33, 34, 35],
+  "Formation Date": "1960-08-01",
+  "Genre": "Rock",
+  "Albums": [
+    {
+      "Album ID": 3,
+      "Title": "Abbey Road",
+      "Release Date": "1969-09-26",
+      "Genre": "Rock"
+    },
+    {
+      "Album ID": 4,
+      "Title": "The White Album",
+      "Release Date": "1968-11-22",
+      "Genre": "Rock"
+    },
+    {
+      "Album ID": 5,
+      "Title": "Sgt. Pepper's Lonely Hearts Club Band",
+      "Release Date": "1967-05-26",
+      "Genre": "Rock"
+    }
+  ]
+}
 
 
 
