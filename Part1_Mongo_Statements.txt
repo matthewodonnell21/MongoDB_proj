@@ -103,7 +103,13 @@ use music_company;
 
 
 // queries
-
+3. db.Track.find({"Artist/Band.Name": "Paul McCartney"},
+{
+  _id: 0,
+  "Track ID": "$_id",
+  Title: 1,
+  Duration: 1
+})
 
 4: db.Album.find({ "Genre":"Rock"}) //its this its literally just this and change the genre you want to find
 5: db.Album.updateOne(               
