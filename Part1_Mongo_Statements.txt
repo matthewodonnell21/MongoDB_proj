@@ -10,19 +10,19 @@ use music_company;
   "Genre": "Rock",
   "Albums": [
     {
-      "Album ID": 3,
+      "Album ID": 2,
       "Title": "Abbey Road",
       "Release Date": "1969-09-26",
       "Genre": "Rock"
     },
     {
-      "Album ID": 4,
+      "Album ID": 3,
       "Title": "The White Album",
       "Release Date": "1968-11-22",
       "Genre": "Rock"
     },
     {
-      "Album ID": 5,
+      "Album ID": 4,
       "Title": "Sgt. Pepper's Lonely Hearts Club Band",
       "Release Date": "1967-05-26",
       "Genre": "Rock"
@@ -70,6 +70,33 @@ use music_company;
   },
   "Album IDs": []
 }
+
+  //Albums
+
+{
+  "_id": 2,
+  "Title": "Abbey Road",
+  "Release Date": "1969-09-26",
+  "Tracks": [
+    {
+      "Track ID": 3,
+      "Title": "Come Together",
+      "Duration": "4:20"
+    },
+    {
+      "Track ID": 4,
+      "Title": "Something",
+      "Duration": "3:03"
+    },
+ 
+  ],
+  "Genre": "Rock",
+  "Artist/Band": {
+    "type": "band",
+    "Reference ID": 2
+  }
+}
+
 
 
 
