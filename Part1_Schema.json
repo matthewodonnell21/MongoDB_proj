@@ -43,7 +43,7 @@
     "Duration" : "4:53",
     "Artist/Band" : {
         "type" : "artist",
-        "Reference ID" : 1
+        "Reference ID" : 1,
         "Name" : "Michael Jackson"
     },
     "Album IDs" : [1]
