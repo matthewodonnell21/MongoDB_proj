@@ -66,7 +66,7 @@ use music_company;
   "Duration": "3:12",
   "Artist/Band": {
     "type": "artist",
-    "Reference ID": 2,
+    "Reference ID": 3,
     "Name": "Paul McCartney"
   },
   "Album IDs": []
