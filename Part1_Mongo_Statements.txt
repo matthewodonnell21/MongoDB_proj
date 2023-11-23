@@ -36,28 +36,28 @@ use music_company;
     "Name": "John Lennon",
     "DOB": "1940-10-09",
     "Instruments": ["guitar", "piano"],
-    "Band IDs": [5]
+    "Band IDs": [2]
   },
   {
     "_id": 3,
     "Name": "Paul McCartney",
     "DOB": "1942-06-18",
     "Instruments": ["bass", "guitar", "piano"],
-    "Band IDs": [5]
+    "Band IDs": [2]
   },
   {
     "_id": 4,
     "Name": "George Harrison",
     "DOB": "1943-02-25",
     "Instruments": ["guitar"],
-    "Band IDs": [5]
+    "Band IDs": [2]
   },
   {
     "_id": 5,
     "Name": "Ringo Starr",
     "DOB": "1940-07-07",
     "Instruments": ["drums", "vocals"],
-    "Band IDs": [5]
+    "Band IDs": [2]
   }
   //Songs
 {
