@@ -105,7 +105,7 @@ use music_company;
 
 
 4: db.Album.find({ "Genre":"Rock"}) //its this its literally just this and change the genre you want to find
-5: db.albums.updateOne(
+5: db.Album.updateOne(               
   { "_id": 2 },
   {
     $push: {
@@ -117,3 +117,14 @@ use music_company;
     }
   }
 );
+//For some reason this puts in 5 as a floating point number, weird
+6: 
+db.Band.aggregate([{$match: {"Name": "The Beatles"}},
+  {
+    $project: {
+      _id: 0,
+      bandName: "$Name",
+      totalAlbums: { $size: "$Albums" }
+    }
+  }
+])
