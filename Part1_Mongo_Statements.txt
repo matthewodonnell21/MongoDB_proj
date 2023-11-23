@@ -61,7 +61,7 @@ use music_company;
   }
   //Songs
 {
-  "_id": 201,
+  "_id": 2,
   "Title": "Live and Let Die",
   "Duration": "3:12",
   "Artist/Band": {
@@ -109,7 +109,11 @@ use music_company;
   { "_id": 2 },
   {
     $push: {
-      "Tracks": 
+      "Tracks": {
+      "Track ID": 5,
+      "Title": "Maxwell's Silver Hammer",
+      "Duration": "3:27"
+    }
     }
   }
 );
