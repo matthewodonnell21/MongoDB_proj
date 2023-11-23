@@ -102,3 +102,14 @@ use music_company;
 
 
 // queries
+
+
+4: db.Album.find({ "Genre":"Rock"}) //its this its literally just this and change the genre you want to find
+5: db.albums.updateOne(
+  { "_id": 2 },
+  {
+    $push: {
+      "Tracks": 
+    }
+  }
+);
