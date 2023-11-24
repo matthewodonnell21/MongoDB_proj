@@ -1,137 +1,205 @@
 use music_company;
 
-// insert statements
-  //Bands 
-  {
-  "_id": 2,
-  "Name": "The Beatles",
-  "Members": [2, 3, 4, 5],
-  "Formation Date": "1960-08-01",
-  "Genre": "Rock",
-  "Albums": [
+// 2. Insert sample documents into the artists, bands, tracks, 
+// and album collections using the schema designed in Task 1. 
+// Ensure that you insert enough documents to allow for meaningful results for the subsequent queries.
+
+db.artists.insertMany([
     {
-      "Album ID": 2,
-      "Title": "Abbey Road",
-      "Release Date": "1969-09-26",
-      "Genre": "Rock"
+        name: "John Lennon",
+        DOB: ISODate("1973-06-19T00:00:00Z"),
+        instruments: ["piano"]
     },
     {
-      "Album ID": 3,
-      "Title": "The White Album",
-      "Release Date": "1968-11-22",
-      "Genre": "Rock"
+        name: "Paul McCartney",
+        DOB: ISODate("1973-06-19T00:00:00Z"),
+        instruments: ["piano"]
     },
     {
-      "Album ID": 4,
-      "Title": "Sgt. Pepper's Lonely Hearts Club Band",
-      "Release Date": "1967-05-26",
-      "Genre": "Rock"
+        name: "Don Henley",
+        DOB: ISODate("1973-06-19T00:00:00Z"),
+        instruments: ["piano"]
+    },
+    {
+        name: "Joe Walsh",
+        DOB: ISODate("1973-06-19T00:00:00Z"),
+        instruments: ["piano"]
+    },
+]);
+
+db.bands.insertMany([
+    {
+        name: "The Beatles",
+        formation_date: ISODate("1973-06-19T00:00:00Z"),
+        genre: "Rock",
+        members: [
+            {
+                artist_id: ObjectId("6560bd7c6f0ad42f2e109413"),
+                name: "John Lennon",
+                DOB: ISODate("1973-06-19T00:00:00Z"),
+                instruments: ["piano"]
+            },
+            {
+                artist_id: ObjectId("6560bd7c6f0ad42f2e109414"),
+                name: "Paul McCartney",
+                DOB: ISODate("1973-06-19T00:00:00Z"),
+                instruments: ["piano"]
+            }
+        ]
+    },
+    {
+        name: "The Eagles",
+        formation_date: ISODate("1973-06-19T00:00:00Z"),
+        genre: "Pop",
+        members: [
+            {
+                artist_id: ObjectId("6560bd7c6f0ad42f2e109415"),
+                name: "Don Henley",
+                DOB: ISODate("1973-06-19T00:00:00Z"),
+                instruments: ["piano"]
+            },
+            {
+                artist_id: ObjectId("6560bd7c6f0ad42f2e109416"),
+                name: "Joe Walsh",
+                DOB: ISODate("1973-06-19T00:00:00Z"),
+                instruments: ["piano"]
+            }
+        ]
     }
-  ]
-}
-  // Artists
+]);
 
-  {
-    "_id": 2,
-    "Name": "John Lennon",
-    "DOB": "1940-10-09",
-    "Instruments": ["guitar", "piano"],
-    "Band IDs": [2]
-  },
-  {
-    "_id": 3,
-    "Name": "Paul McCartney",
-    "DOB": "1942-06-18",
-    "Instruments": ["bass", "guitar", "piano"],
-    "Band IDs": [2]
-  },
-  {
-    "_id": 4,
-    "Name": "George Harrison",
-    "DOB": "1943-02-25",
-    "Instruments": ["guitar"],
-    "Band IDs": [2]
-  },
-  {
-    "_id": 5,
-    "Name": "Ringo Starr",
-    "DOB": "1940-07-07",
-    "Instruments": ["drums", "vocals"],
-    "Band IDs": [2]
-  }
-  //Songs
-{
-  "_id": 2,
-  "Title": "Live and Let Die",
-  "Duration": "3:12",
-  "Artist/Band": {
-    "type": "artist",
-    "Reference ID": 3,
-    "Name": "Paul McCartney"
-  },
-  "Album IDs": []
-}
-
-  //Albums
-
-{
-  "_id": 2,
-  "Title": "Abbey Road",
-  "Release Date": "1969-09-26",
-  "Tracks": [
+db.tracks.insertMany([
     {
-      "Track ID": 3,
-      "Title": "Come Together",
-      "Duration": "4:20"
+        title: "Wonderful Christmastime",
+        duration: "4:00",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        artist: {
+            artist_id: ObjectId("6560bd7c6f0ad42f2e109414"),
+            name: "Paul McCartney",
+            DOB: ISODate("1973-06-19T00:00:00Z"),
+            instruments: ["piano"]
+
+        }
     },
     {
-      "Track ID": 4,
-      "Title": "Something",
-      "Duration": "3:03"
+        title: "Band on the Run",
+        duration: "4:00",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        artist: {
+            artist_id: ObjectId("6560bd7c6f0ad42f2e109414"),
+            name: "Paul McCartney",
+            DOB: ISODate("1973-06-19T00:00:00Z"),
+            instruments: ["piano"]
+        }
     },
- 
-  ],
-  "Genre": "Rock",
-  "Artist/Band": {
-    "type": "band",
-    "Reference ID": 2
-  }
-}
-
-
-
-
-
-// queries
-3. db.Track.find({"Artist/Band.Name": "Paul McCartney"},
-{
-  _id: 0,
-  "Track ID": "$_id",
-  Title: 1,
-  Duration: 1
-})
-
-4: db.Album.find({ "Genre":"Rock"}) //its this its literally just this and change the genre you want to find
-5: db.Album.updateOne(               
-  { "_id": 2 },
-  {
-    $push: {
-      "Tracks": {
-      "Track ID": 5,
-      "Title": "Maxwell's Silver Hammer",
-      "Duration": "3:27"
+    {
+        title: "Come Together",
+        duration: "4:00",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        band: {
+            band_id: ObjectId("6560c183d80d1cc1ac1c40d5"),
+            name: "The Beatles",
+            formation_date: ISODate("1973-06-19T00:00:00Z"),
+            genre: "Rock"
+        }
+    },
+    {
+        title: "Something",
+        duration: "4:00",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        band: {
+            band_id: ObjectId("6560c183d80d1cc1ac1c40d5"),
+            name: "The Beatles",
+            formation_date: ISODate("1973-06-19T00:00:00Z"),
+            genre: "Rock"
+        }
+    },
+    {
+        title: "Blackbird",
+        duration: "4:00",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        band: {
+            band_id: ObjectId("6560c183d80d1cc1ac1c40d5"),
+            name: "The Beatles",
+            formation_date: ISODate("1973-06-19T00:00:00Z"),
+            genre: "Rock"
+        }
+    },
+    {
+        title: "Hotel California",
+        duration: "4:00",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        band: {
+            band_id: ObjectId("6560c183d80d1cc1ac1c40d6"),
+            name: "The Eagles",
+            formation_date: ISODate("1973-06-19T00:00:00Z"),
+            genre: "Pop"
+        }
     }
+]);
+
+db.albums.insertMany([
+    {
+        title: "Abbey Road",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        genre: "Rock",
+        tracks: [ObjectId("6560c549d80d1cc1ac1c40d9"), ObjectId("6560c549d80d1cc1ac1c40da")],
+        band: {
+            band_id: ObjectId("6560c183d80d1cc1ac1c40d5"),
+            name: "The Beatles",
+            formation_date: ISODate("1973-06-19T00:00:00Z"),
+            genre: "Rock"
+        }      
+    },
+    {
+        title: "The White Album",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        genre: "Rock",
+        tracks: [ObjectId("6560c549d80d1cc1ac1c40db")],
+        band: {
+            band_id: ObjectId("6560c183d80d1cc1ac1c40d5"),
+            name: "The Beatles",
+            formation_date: ISODate("1973-06-19T00:00:00Z"),
+            genre: "Rock"
+        }      
+    },
+    {
+        title: "Hotel California",
+        release_date: ISODate("1973-06-19T00:00:00Z"),
+        genre: "Pop",
+        tracks: [ObjectId("6560c549d80d1cc1ac1c40dc")],
+        band: {
+            band_id: ObjectId("6560c183d80d1cc1ac1c40d6"),
+            name: "The Eagles",
+            formation_date: ISODate("1973-06-19T00:00:00Z"),
+            genre: "Pop"
+        }      
     }
-  }
+]);
+
+// 3. Write a MongoDB query to find all tracks released by a specific artist by name.
+
+db.tracks.find({"artist.name": "Paul McCartney"});
+
+// 4. Write a MongoDB query to find all albums in a specific genre.
+
+db.albums.find({"genre":"Rock"}); 
+
+// 5. Write a MongoDB update operation to add a new track to an existing album.
+
+db.albums.updateOne(               
+  { name: "Abbey Road" },
+  { $push: { tracks: ObjectId("6560c549d80d1cc1ac1c40da") } }
 );
-//For some reason this puts in 5 as a floating point number, weird
-6: 
-db.Band.aggregate([{$match: {"Name": "The Beatles"}},
-  {
-    $project: {
-      _id: 0,
-      bandName: "$Name",
-      totalAlbums: { $size: "$Albums" }
-    }
-  }
-])
+
+// 6. Write a MongoDB aggregation to count the number of albums each band releases.
+
+db.albums.aggregate([
+    { $group: { _id: "$band.band_id", 
+        albums: { $addToSet: "$_id" },
+        name: { $first: "$band.name" } } 
+    },
+    { $project: { _id: 0, name: 1, numAlbums: { $size: "$albums" } } }
+]);
+
+
