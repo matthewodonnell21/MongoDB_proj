@@ -1,0 +1,51 @@
+Artist : {
+    name: "John Lennon",
+    DOB: ISODate("1973-06-19T00:00:00Z"),
+    instruments: ["piano"]
+}
+
+Band : {
+    name: "The Beatles",
+    formation_date: ISODate("1973-06-19T00:00:00Z"),
+    genre: "Rock",
+    members: [
+        {
+            artist_id: ObjectId("6560bd7c6f0ad42f2e109413"),
+            name: "John Lennon",
+            DOB: ISODate("1973-06-19T00:00:00Z"),
+            instruments: ["piano"]
+        },
+        {
+            artist_id: ObjectId("6560bd7c6f0ad42f2e109414"),
+            name: "Paul McCartney",
+            DOB: ISODate("1973-06-19T00:00:00Z"),
+            instruments: ["piano"]
+        }
+    ]
+}
+
+Track : {
+    title: "Wonderful Christmastime",
+    duration: "4:00",
+    release_date: ISODate("1973-06-19T00:00:00Z"),
+    artist: {
+        artist_id: ObjectId("6560bd7c6f0ad42f2e109414"),
+        name: "Paul McCartney",
+        DOB: ISODate("1973-06-19T00:00:00Z"),
+        instruments: ["piano"]
+    }
+}
+
+Album : {
+    title: "Abbey Road",
+    release_date: ISODate("1973-06-19T00:00:00Z"),
+    genre: "Rock",
+    tracks: [ObjectId("6560c549d80d1cc1ac1c40d9"), ObjectId("6560c549d80d1cc1ac1c40da")],
+    band: {
+        band_id: ObjectId("6560c183d80d1cc1ac1c40d5"),
+        name: "The Beatles",
+        formation_date: ISODate("1973-06-19T00:00:00Z"),
+        genre: "Rock"
+    }   
+}
+    

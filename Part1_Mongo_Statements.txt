@@ -4,6 +4,9 @@ use music_company;
 // and album collections using the schema designed in Task 1. 
 // Ensure that you insert enough documents to allow for meaningful results for the subsequent queries.
 
+// NOTE: ALL OBJECTID REFERENCES WILL BE INACCURATE IF RECREATING THE DATABASE SINCE THEY ARE 
+// RANDOMLY CREATED BY MONGO. HOWEVER, ALL QUERIES SHOULD STILL FUNCTION PROPERLY
+
 db.artists.insertMany([
     {
         name: "John Lennon",
@@ -143,7 +146,7 @@ db.albums.insertMany([
         title: "Abbey Road",
         release_date: ISODate("1973-06-19T00:00:00Z"),
         genre: "Rock",
-        tracks: [ObjectId("6560c549d80d1cc1ac1c40d9"), ObjectId("6560c549d80d1cc1ac1c40da")],
+        tracks: [ObjectId("6560c549d80d1cc1ac1c40d9")],
         band: {
             band_id: ObjectId("6560c183d80d1cc1ac1c40d5"),
             name: "The Beatles",
