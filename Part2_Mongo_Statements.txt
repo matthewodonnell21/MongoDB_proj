@@ -154,7 +154,16 @@ db.employees.updateOne(
 
 db.employees.createIndex({ "services.estimate.description": "text" });
 
-db.employees.find({ $text: { $search: "Paint" } });
+db.employees.aggregate([
+   { $match: { $text: { $search: "paint" } } },
+   { $unwind: "$services" },
+   { 
+      $match: { 
+         "services.estimate.description": { $regex: "paint", $options: "i" }
+      }
+   },
+   { $project: { _id: 0, "services.vehicle.licensePlate": 1 } }
+]);
 
 // 14. Count the number of employees who have worked on repairs with repairID 2849165 and 4698531.
 
