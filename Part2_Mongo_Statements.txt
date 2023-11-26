@@ -146,8 +146,12 @@ db.employees.aggregate([
 // What anomaly is presented? Use some criteria to correct it.
 
 db.employees.updateOne(
-   { "services.vehicle.chassisNumber": "SFZRE11BX73V00011" },
-   { $set: { "services.vehicle.chassisNumber": "NEWCHASSIS1111111" } }
+  { "services.vehicle.chassisNumber": "SFZRE11BX73V00011" },
+  {
+    $set: {
+      "services.$.vehicle.chassisNumber": "NEWCHASSIS1111111"
+    }
+  }
 );
 
 // 13. Create a text index on the descriptions of the estimates and locate all vehicles that have been painted.
